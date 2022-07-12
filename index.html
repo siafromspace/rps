@@ -7,6 +7,7 @@
   <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="choices.css">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
   <title>Frontend Mentor | Rock, Paper, Scissors</title>
@@ -21,20 +22,21 @@
       <p class="score">12</p>
     </div>
   </div>
+
   <div class="game-board">
     <img src="images/bg-triangle.svg" alt="" class="bgImage">
     <div class="paperWrapper">
-      <div class="paperBtn">
+      <div class="paperBtn gameBtn" data-text="paper">
         <img src="images/icon-paper.svg" alt="">
       </div>
     </div>
     <div class="scissorsWrapper">
-      <div class="scissorsBtn">
+      <div class="scissorsBtn gameBtn" data-text="scissors">
         <img src="images/icon-scissors.svg" alt="">
       </div>
     </div>
     <div class="rockWrapper">
-      <div class="rockBtn">
+      <div class="rockBtn gameBtn" data-text="rock">
         <img src="images/icon-rock.svg" alt="">
       </div>
     </div>
@@ -42,6 +44,15 @@
   <div class="rules">
     <h2>Rules</h2>
   </div>
+  <div class="rules-modal">
+    <div class="modal-head">
+      <h2>Rules</h2>
+      <img src="images/icon-close.svg" alt="" class="close">
+    </div>
+    <img src="images/image-rules.svg" alt="">
+    <img src="images/icon-close.svg" alt="" class="close">
+  </div>
+  <div class="overlay"></div>
 </body>
 
 </html>
