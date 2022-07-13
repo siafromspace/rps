@@ -17,6 +17,7 @@
     box-sizing: border-box;
 }
 body {
+    font-family: 'Barlow Semi Condensed', sans-serif;
     width: 100vw;
     height: 100%;
     margin: 2rem 0;
@@ -58,6 +59,11 @@ body {
     margin-top: 6rem;
     position: relative;
 }
+.hide {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
 .game-board .bgImage {
     width: 100%;
     height: 100%;
@@ -83,6 +89,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.09), 0 0 0 40px rgba(255, 255, 255, 0.06), 0 0 0 60px rgba(255, 255, 255, 0.03); */
 }
 .paperWrapper {
     left: -90px;
@@ -147,7 +154,7 @@ body {
     align-items: center;
 }
 .rules-modal > .close {
-    visibility: hidden;
+    display: none;
 }
 .overlay {
     visibility: hidden;
@@ -183,10 +190,12 @@ body {
     .rules {
         align-self: center;
         margin-right: 0;
+        position: absolute;
+        bottom: -1rem;
     }
     .rules-modal {
         top: 0;
-        bottom: 0;
+        bottom: -3rem;
         left: 0;
         right: 0;
         transform: translate(0);
@@ -203,6 +212,24 @@ body {
         visibility: hidden;
     }
     .rules-modal > .close {
-        visibility: visible;
+        display: block;
+    }
+}
+@media (max-height: 638px) {
+    .rules {
+        position: absolute;
+        bottom: -10rem;
+    }
+}
+@media (max-height: 550px) {
+    .rules {
+        position: absolute;
+        bottom: -15rem;
+    }
+}
+@media (max-height: 450px) {
+    .rules {
+        position: absolute;
+        bottom: -22rem;
     }
 }

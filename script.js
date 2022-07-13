@@ -3,266 +3,130 @@ const rulesModal = document.querySelector('.rules-modal')
 const closeRules = document.querySelectorAll('.close')
 const overlay = document.querySelector('.overlay')
 const gameBoard = document.querySelector('.game-board')
+const choices = document.querySelector('.choices')
+const choiceWrapper = document.querySelector('.choiceWrapper')
+const houseWrapper = document.querySelector('.houseWrapper')
+const choiceImg = document.getElementById('choiceImg')
 const gameBtn = Array.from(document.querySelectorAll('.gameBtn'))
 const result = document.querySelector('.result')
+const gameResult = document.querySelector('.gameResult')
+const replay = document.querySelector('.replay')
+const score = document.querySelector('.score')
 
 const houseChoices = ['rock', 'paper', 'scissors']
 
 //view rules modal
 rulesBtn.addEventListener('click', () => {
-    rulesModal.style.visibility = "visible"
-    overlay.style.visibility = "visible"
+  rulesModal.style.visibility = "visible"
+  overlay.style.visibility = "visible"
 })
 
 //remove rules modal 
 closeRules.forEach(icon => {
-    icon.addEventListener('click', () => {
-        rulesModal.style.visibility = "hidden"
-        overlay.style.visibility = "hidden"
-    })
+  icon.addEventListener('click', () => {
+    rulesModal.style.visibility = "hidden"
+    overlay.style.visibility = "hidden"
+  })
 })
 
 
 const houseIndex = Math.floor(Math.random() * houseChoices.length)
 const houseChoice = houseChoices[houseIndex]
+let playerScore = 0
+score.innerText = playerScore
+
+playerHand()
 
 function playGame() {
-    gameBtn.forEach(btn => {
-        btn.addEventListener('click', () => {
-            playerChoice = btn.dataset['text']
-            gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result"></div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper">
-                <div>
-                </div>
-              </div>
-            </div>
-          </div>`
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-                <div class="player-choice">
-                  <h2>You picked</h2>
-                  <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                    <div class="choiceBtn">
-                      <img src="images/icon-${playerChoice}.svg" alt="">
-                    </div>
-                  </div>
-                </div>
-                <div class="result"></div>
-                <div class="house-choice">
-                  <h2>The house picked</h2>
-                  <div class="houseWrapper ${houseChoice}">
-                    <div class="houseBtn">
-                      <img src="images/icon-${houseChoice}.svg" alt="">
-                    </div>
-                  </div>
-                </div>
-              </div>`
-            }, 1000)
-            printResult()
-        })
-    })
-
+  setTimeout(houseHand, 1000)
+  setTimeout(printResult, 2000)
+  setTimeout(scoreBoard, 2000)
+  playAgain()
 }
-playGame()
+
+function playerHand() {
+  playerScore = localStorage.getItem('score')
+  score.innerText = playerScore
+  gameBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      playerChoice = btn.dataset['text']
+      gameBoard.classList.add('hide')
+      choices.classList.remove('hide')
+      choiceImg.setAttribute('src', `images/icon-${playerChoice}.svg`)
+      choiceWrapper.classList.add(`${playerChoice}`)
+      playGame()
+    })
+  })
+}
+
+
+function houseHand() {
+  houseWrapper.innerHTML = `<div class="houseBtn">
+    <img src="images/icon-${houseChoice}.svg" alt="" id="houseImg">
+  </div>`
+  houseWrapper.classList.add(`${houseChoice}`)
+}
+
 
 function printResult() {
-    if (playerChoice === "rock") {
-        if (houseChoice === "scissors") {
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result">
-              <h1>You win</h1>
-              <button>Play again</button>
-            </div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper ${houseChoice}">
-                <div class="houseBtn">
-                  <img src="images/icon-${houseChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>`
-            }, 2000)
-        } else if (houseChoice === "paper") {
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result">
-              <h1>You lose</h1>
-              <button>Play again</button>
-            </div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper ${houseChoice}">
-                <div class="houseBtn">
-                  <img src="images/icon-${houseChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>`
-            }, 2000)
-        }
+  result.classList.remove('hide')
+  if (playerChoice === houseChoice) {
+    gameResult.textContent = "Draw"
+  }
+  else if (playerChoice === "paper") {
+    if (houseChoice === "rock") {
+      gameResult.textContent = "You win"
+      replay.classList.add(`btn-${playerChoice}`)
+      choiceWrapper.classList.add('is-winner')
+    } else if (houseChoice === "scissors") {
+      gameResult.textContent = "You lose"
+      replay.classList.add(`btn-${houseChoice}`)
+      houseWrapper.classList.add('is-winner')
     }
-    else if (playerChoice === "paper") {
-        if (houseChoice === "rock") {
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result">
-              <h1>You win</h1>
-              <button>Play again</button>
-            </div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper ${houseChoice}">
-                <div class="houseBtn">
-                  <img src="images/icon-${houseChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>`
-            }, 2000)
-        } else if (houseChoice === "scissors") {
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result">
-              <h1>You lose</h1>
-              <button>Play again</button>
-            </div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper ${houseChoice}">
-                <div class="houseBtn">
-                  <img src="images/icon-${houseChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>`
-            }, 2000)
-        }
+  }
+  else if (playerChoice === "scissors") {
+    if (houseChoice === "rock") {
+      gameResult.textContent = "You lose"
+      replay.classList.add(`btn-${houseChoice}`)
+      houseWrapper.classList.add('is-winner')
+    } else if (houseChoice === "paper") {
+      gameResult.textContent = "You win"
+      replay.classList.add(`btn-${playerChoice}`)
+      choiceWrapper.classList.add('is-winner')
     }
-    else if (playerChoice === "scissors") {
-        if (houseChoice === "rock") {
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result">
-              <h1>You lose</h1>
-              <button>Play again</button>
-            </div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper ${houseChoice}">
-                <div class="houseBtn">
-                  <img src="images/icon-${houseChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>`
-            }, 2000)
-        } else if (houseChoice === "paper") {
-            setTimeout(() => {
-                gameBoard.innerHTML = `<div class="choices">
-            <div class="player-choice">
-              <h2>You picked</h2>
-              <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-                <div class="choiceBtn">
-                  <img src="images/icon-${playerChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="result">
-              <h1>You win</h1>
-              <button>Play again</button>
-            </div>
-            <div class="house-choice">
-              <h2>The house picked</h2>
-              <div class="houseWrapper ${houseChoice}">
-                <div class="houseBtn">
-                  <img src="images/icon-${houseChoice}.svg" alt="">
-                </div>
-              </div>
-            </div>
-          </div>`
-            }, 2000)
-        }
+  }
+  else if (playerChoice === "rock") {
+    if (houseChoice === "scissors") {
+      gameResult.textContent = "You win"
+      replay.classList.add(`btn-${playerChoice}`)
+      choiceWrapper.classList.add('is-winner')
+    } else if (houseChoice === "paper") {
+      gameResult.textContent = "You lose"
+      replay.classList.add(`btn-${houseChoice}`)
+      houseWrapper.classList.add('is-winner')
     }
-    else if (playerChoice === houseChoice) {
-        setTimeout(() => {
-            gameBoard.innerHTML = `<div class="choices">
-        <div class="player-choice">
-          <h2>You picked</h2>
-          <div class="choiceWrapper ${playerChoice}" data-choice="${playerChoice}">
-            <div class="choiceBtn">
-              <img src="images/icon-${playerChoice}.svg" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="result">
-          <h1>Draw</h1>
-          <button>Play again</button>
-        </div>
-        <div class="house-choice">
-          <h2>The house picked</h2>
-          <div class="houseWrapper ${houseChoice}">
-            <div class="houseBtn">
-              <img src="images/icon-${houseChoice}.svg" alt="">
-            </div>
-          </div>
-        </div>
-      </div>`
-        }, 2000)
-    }
+  }
 }
+
+function scoreBoard() {
+  if (choiceWrapper.classList.contains('is-winner')) {
+    playerScore++
+    score.textContent = playerScore
+  } else if (houseWrapper.classList.contains('is-winner')) {
+    playerScore--
+    score.textContent = playerScore
+  }
+  localStorage.setItem('score', playerScore)
+  return playerScore
+}
+
+function playAgain() {
+  replay.addEventListener('click', () => {
+    window.location = '/'
+  })
+}
+
+
 
 
 
