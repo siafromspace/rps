@@ -122,7 +122,7 @@ function scoreBoard() {
 
 function playAgain() {
   replay.addEventListener('click', () => {
-    window.location = '/'
+    return window.location.assign('/index.html')
   })
 }
 
