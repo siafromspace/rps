@@ -25,11 +25,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![rps1](https://user-images.githubusercontent.com/101575004/179063804-05646af1-75c0-4a4f-93f5-ce59e7b07053.png)
+![rps2](https://user-images.githubusercontent.com/101575004/179063828-1fee315a-2e0e-406a-83b8-f7c4daf4e5f0.png)
 
 ### Links
 
-- Solution URL: [Solution](https://your-solution-url.com)
+- Solution URL: [Solution](https://github.com/siafromspace/rps.git)
 - Live Site URL: [Live Site](https://rock-paper-scissors247.netlify.app/)
 
 ## My process
