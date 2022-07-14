@@ -51,8 +51,8 @@ function playerHand() {
     btn.addEventListener('click', () => {
       playerChoice = btn.dataset['text']
       gameBoard.classList.add('hide')
-      choices.classList.remove('hide')
       choiceImg.setAttribute('src', `images/icon-${playerChoice}.svg`)
+      choices.classList.remove('hide')
       choiceWrapper.classList.add(`${playerChoice}`)
       playGame()
     })
