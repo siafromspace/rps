@@ -131,6 +131,7 @@ function playAgain() {
     houseWrapper.innerHTML = ''
     houseWrapper.classList.remove(`${houseChoice}`)
     choiceWrapper.classList.remove(`${playerChoice}`)
+    choiceImg.setAttribute('src', '')
     replay.classList.remove(`btn-${playerChoice}`)
     replay.classList.remove(`btn-${houseChoice}`)
   })
