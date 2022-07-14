@@ -74,6 +74,13 @@
     font-size: 0.8rem;
     cursor: pointer;
 }
+.replay:hover {
+    box-shadow: 0 0 5px 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease-in;
+}
+.replay:active {
+    transform: scale(0.9);
+}
 .btn-paper {
     color: var(--paperOne);
 }
