@@ -42,6 +42,7 @@
 }
 .is-winner {
     box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.09), 0 0 0 60px rgba(255, 255, 255, 0.06), 0 0 0 90px rgba(255, 255, 255, 0.03);
+    transition: all 0.4s ease-in;
 }
 .choiceBtn, .houseBtn {
     position: absolute;
@@ -52,7 +53,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 7px 0 rgba(0,0,0,0.15)
+    box-shadow: inset 0 7px 0 rgba(0,0,0,0.15);
 }
 .result {
     display: flex;

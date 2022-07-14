@@ -122,7 +122,17 @@ function scoreBoard() {
 
 function playAgain() {
   replay.addEventListener('click', () => {
-    return window.location.assign('/index.html')
+    gameBoard.classList.remove('hide')
+    choices.classList.add('hide')
+    result.classList.add('hide')
+    houseWrapper.classList.remove('is-winner')
+    choiceWrapper.classList.remove('is-winner')
+    replay.classList.remove('hide')
+    houseWrapper.innerHTML = ''
+    houseWrapper.classList.remove(`${houseChoice}`)
+    choiceWrapper.classList.remove(`${playerChoice}`)
+    replay.classList.remove(`btn-${playerChoice}`)
+    replay.classList.remove(`btn-${houseChoice}`)
   })
 }
 
